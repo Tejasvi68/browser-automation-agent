@@ -1,0 +1,24 @@
+# Python & Virtual Environments
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Secrets & Environment Files (NEVER commit these)
+.env
+*.json
+!package.json
+!tsconfig.json
+
+# Generated Runtime Data
+backend/screenshots/
+backend/*.db
+backend/*.sqlite3
+backend/chroma_db/
+
+# IDE & OS
+.vscode/
+.DS_Store
+Thumbs.db

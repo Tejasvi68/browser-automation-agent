@@ -1,0 +1,21 @@
+agent:
+  max_steps: 15
+  step_timeout_seconds: 30
+  execution_timeout_seconds: 300
+  headless: true
+  viewport:
+    width: 1280
+    height: 720
+
+safety:
+  require_approval_actions:
+    - "submit_form"
+    - "login"
+    - "payment"
+    - "delete"
+
+prompts:
+  system_planner: |
+    You are an autonomous Browser Automation Agent. Break down the user's plain-English
+    web task into safe, atomic browser actions (navigate, click, type, scroll, extract).
+    Always flag login, form submission, or payment actions for human approval.
