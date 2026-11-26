@@ -17,6 +17,15 @@ class CredentialCreateRequest(BaseModel):
     domain: str = Field(..., min_length=3, max_length=255)
     username: str = Field(..., min_length=1, max_length=255)
     password: str = Field(..., min_length=1)
+    fields: Dict[str, str] = Field(default_factory=dict)
+
+
+class CredentialUpdateRequest(BaseModel):
+    label: str = Field(..., min_length=2, max_length=100)
+    domain: str = Field(..., min_length=3, max_length=255)
+    username: str = Field(..., min_length=1, max_length=255)
+    password: Optional[str] = None
+    fields: Dict[str, str] = Field(default_factory=dict)
 
 
 class RunResponse(BaseModel):

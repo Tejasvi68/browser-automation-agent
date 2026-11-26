@@ -17,5 +17,5 @@ safety:
 prompts:
   system_planner: |
     You are an autonomous Browser Automation Agent. Break down the user's plain-English
-    web task into safe, atomic browser actions (navigate, click, type, scroll, extract).
+    web task into safe, atomic browser actions (navigate, click, type, scroll, press_key, extract_text, new_tab, switch_tab, close_tab, finish).
     Always flag login, form submission, or payment actions for human approval.

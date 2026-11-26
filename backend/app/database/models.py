@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import Column, DateTime, Integer, String, Text, JSON
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text, JSON, UniqueConstraint
 from app.database.database import Base
 
 
@@ -19,6 +19,18 @@ class UserCredential(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow)
 
 
+class CredentialField(Base):
+    __tablename__ = "credential_fields"
+    __table_args__ = (UniqueConstraint("credential_id", "name_key", name="uq_credential_field_name"),)
+
+    id = Column(Integer, primary_key=True, index=True)
+    credential_id = Column(Integer, ForeignKey("user_credentials.id"), index=True, nullable=False)
+    user_id = Column(String(128), index=True, nullable=False)
+    name = Column(String(100), nullable=False)
+    name_key = Column(String(100), nullable=False)
+    encrypted_value = Column(Text, nullable=False)
+
+
 class ExecutionRun(Base):
     __tablename__ = "execution_runs"
 
@@ -29,6 +41,7 @@ class ExecutionRun(Base):
     plan = Column(JSON, default=list)
     steps_log = Column(JSON, default=list)
     extracted_data = Column(JSON, default=dict)
+    final_summary = Column(Text, nullable=True)
     error_message = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=utcnow)
     updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)

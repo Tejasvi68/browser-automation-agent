@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 from app.config import settings
 
@@ -20,3 +20,11 @@ def get_db():
 def init_db():
     from app.database import models  # noqa: F401
     Base.metadata.create_all(bind=engine)
+
+    table_name = getattr(models.ExecutionRun, "__tablename__", "execution_runs")
+    with engine.connect() as conn:
+        try:
+            conn.execute(text(f"ALTER TABLE {table_name} ADD COLUMN final_summary TEXT"))
+            conn.commit()
+        except Exception:
+            pass

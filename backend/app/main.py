@@ -1,4 +1,6 @@
 from contextlib import asynccontextmanager
+import asyncio
+import sys
 from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,6 +11,8 @@ from app.config import agent_yaml_config, settings
 from app.database.database import init_db
 from app.services.scheduler_service import scheduler_service
 
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
