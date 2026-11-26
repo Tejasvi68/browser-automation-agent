@@ -10,6 +10,7 @@ __pycache__/
 .env
 *.json
 !package.json
+!package-lock.json
 !tsconfig.json
 
 # Generated Runtime Data
